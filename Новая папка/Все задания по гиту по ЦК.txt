@@ -1,0 +1,79 @@
+commit-one-file-staged:
+git reset A.txt
+git status
+git commit -am "B.txt"
+
+ignore-them:
+#use .gitignore
+vi .gitignore (в редакторе вписываем *.exe, *.o, *.jar, libraries/ построчно и выходим из него)
+git add .
+git commit -m "gitignore"
+
+merge-conflict:
+git merge another-piece-of-work(не сработал из-за конфликта в txt файле)
+git status
+Далее заходим в статус и видим, что у хэда в примере не хватает слагаемого, а у another-piece-of-work другого. Заменяем все на 2 + 3 = 5 и выходим из файла
+git add .
+git commit -m "merge"
+
+save-your-work:
+git stash
+git stash list (смотрим где баг, понимаем, что он в bug.txt)
+Убираем лишние строки из файла bug.txt
+git commit -am "Fixed the bug"
+git stash pop
+Заходим снова в файл bug.txt, добавляем нужную строчку
+git commit -am "All done"
+
+change-branch-history:
+git rebase hot-bugfix
+(всё:))
+
+forge-date:
+git commit --amend --date 1-1-1987 (меняем дату последнего коммита) (всё:))
+
+fix-old-typo:
+git rebase -i HEAD~2
+vi file.txt (исправляем ошибку)
+git add file.txt
+git rebase --continue
+vi file.txt (исправляем еще одну ошибку в REBASE 2/2)
+git add file.txt
+git rebase --continue
+
+commit-lost:
+git reflog (находим HEAD@{1})
+git reset HEAD@{1} --hard
+
+too-many-commits:
+git rebase -i (меняем тэг второго коммита на squash)
+(вылазит второй редактор, удаляем две ненужные строчки под добавленным файлом)
+
+executable:
+ls -lrt
+git add --chmod +x script.sh
+git status
+git commit -m "chmod"
+
+commit-parts:
+git add -p
+Дальше идет первое задание и последовательность ответов такова: s, n, y, n, y.
+git commit -m "first"
+git add -p
+Дальше идет второе задание и правильные ответы: s, y, y.
+git commit -m "second"
+
+invalid-order:
+git rebase -i
+Открывается графическая консоль, нам нужно просто поменять порядок строк (коммитов). Меняем и все, задание сделано
+
+search-improved:
+Открываем файл faulty-check и видим, что нужная нам команда это "vim"
+git log -S 'vim' (Таким образом находим все коммиты, в которых встречалось это
+слово)
+git push origin 67f588392b638189c79b015afdd8729c088413cc:search-improved
+(коммит найден, задание выполнено)
+
+
+
+

@@ -1,0 +1,68 @@
+1. Curl. Сделайте с помощью утилиты curl запрос на 
+http://10.8.0.1:8080/12a8f5a77ee8 с методом PATCH, передав 
+query-параметр do со значением 58146fadfb6b, заголовок 
+X-Access-Token со значением 24207c51f607 и JSON-объект с единственным 
+полем text со значением ea24b4b5d00b в теле запроса.
+
+cudo curl -X PATCH http://10.8.0.1:8080/12a8f5a77ee8?do=58146fadfb6b  -d '{"text":"ea24b4b5d00b"}' -H "X-Access-Token: 24207c51f607" -H "Content-Type: application/json"
+Answer(a094a8f771a9)
+
+2. HTTP. Откройте в браузере http://10.8.0.1/. Чтобы получить секрет, нажмите кнопку на этой странице 10 000 раз. Автоматизируйте этот процесс.
+
+import mouse
+import keyboard as key
+from time import sleep
+
+startK = 'o'
+stopK = 'k'
+
+while True:
+    if key.is_pressed(startK):
+        while True:
+            sleep(0.04)
+            mouse.double_click(button = 'left')
+            if key.is_pressed(stopK):
+                break
+
+Answer(2c8e30d84cdc)
+
+3. TCP. Установите TCP соединение с хостом 10.8.0.1 на порт 1234. Выполните предлагаемое задание.
+
+import socket
+
+sock = socket.socket()
+sock.connect(('10.8.0.1', 1234))
+for i in range(4):
+    line = sock.recv(100)
+    line = line[:len(line)-1]
+    print(line)
+
+lineCounter = 0       
+while True:      
+    line = sock.recv(100)
+    line = line[:len(line)-1]
+    print(line)
+    if lineCounter == 119:
+        break
+    if lineCounter % 2 == 0:
+        sock.send(str(eval(line)).encode())
+        print(eval(line))
+    lineCounter += 1
+    
+line = sock.recv(100)
+line = line[:len(line)-1]
+print(line)
+
+Answer(2697366b3dc0)
+
+4. DNS. Узнайте TXT-запись домена 41dc217e420a.digital-culture-2021-networking.melnikov.ch
+
+В интернете можно найти онлайн сервисы, которые могут найти ТХТ-запись адреса,
+я так и сделал, т.к правилами не запрещалось.
+Answer(f9d9b44ed30b)
+
+5. UDP. Хост 10.8.0.1 раз в 10 секунд проверяет, отвечает ли хост 10.8.0.214 на пинги (запросы ICMP Echo Request), и отправляет UDP-датаграмму ему на порт 666, если да. Добавьте этот адрес к своему VPN-интерфейсу и получите датаграмму.
+
+дальше через брандмауэр пришлось включить запросы ICMP и уже после этого в консоли линукс
+сделать cudo nc -l -u -p 666
+Answer(9dbb93144bf9)
